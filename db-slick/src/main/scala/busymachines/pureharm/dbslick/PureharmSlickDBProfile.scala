@@ -26,7 +26,7 @@ import busymachines.pureharm.internals.dbslick._
   "Use busymachines.pureharm.dbslick.PureharmSlickPostgresProfile, support for non Postgresql slick will be dropped in the future",
   "0.0.6-M2",
 )
-trait PureharmSlickDBProfile extends PureharmDBCoreAliases with PureharmDBSlickTypeDefinitions {
+trait PureharmSlickDBProfile extends PureharmDBCoreAliases with PureharmDBSlickAliases {
   self: slick.jdbc.JdbcProfile =>
 
   /** We use this trick to propagate the profile from the top level object to the

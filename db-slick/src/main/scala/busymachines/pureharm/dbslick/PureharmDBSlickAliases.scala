@@ -33,7 +33,7 @@ import busymachines.pureharm.dbslick
   * @author Lorand Szakacs, https://github.com/lorandszakacs
   * @since 02 Apr 2019
   */
-trait PureharmDBSlickTypeDefinitions {
+trait PureharmDBSlickAliases {
 
   final type ConnectionIO[T] = dbslick.ConnectionIO[T]
   final val ConnectionIO: slick.dbio.DBIO.type = slick.dbio.DBIO

@@ -23,7 +23,7 @@ import busymachines.pureharm.internals
   * @since 12 Jun 2019
   */
 trait PureharmSlickPostgresProfile
-  extends slick.jdbc.PostgresProfile with PureharmDBCoreAliases with PureharmDBSlickTypeDefinitions { self =>
+  extends slick.jdbc.PostgresProfile with PureharmDBCoreAliases with PureharmDBSlickAliases { self =>
 
   /** We use this trick to propagate the profile from the top level object to the
     * definition of the "api" object. Otherwise we can't possibly reuse stuff that
