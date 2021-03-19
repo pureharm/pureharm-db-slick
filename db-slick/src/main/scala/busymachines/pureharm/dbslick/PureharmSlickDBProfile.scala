@@ -17,7 +17,7 @@
 package busymachines.pureharm.dbslick
 
 import busymachines.pureharm.db.PureharmDBCoreAliases
-import busymachines.pureharm.internals.dbslick._
+import busymachines.pureharm.dbslick.internals._
 
 /** @author Lorand Szakacs, https://github.com/lorandszakacs
   * @since 12 Jun 2019

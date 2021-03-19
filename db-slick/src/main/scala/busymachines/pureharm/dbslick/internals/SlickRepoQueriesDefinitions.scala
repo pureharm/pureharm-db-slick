@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package busymachines.pureharm.internals.dbslick
+package busymachines.pureharm.dbslick.internals
 
 import busymachines.pureharm.db._
 import busymachines.pureharm.db.pgjdbc.PSQLExceptionInterpreters
@@ -22,7 +22,7 @@ import busymachines.pureharm.dbslick._
 import busymachines.pureharm.effects._
 import busymachines.pureharm.identifiable.Identifiable
 
-/** See [[busymachines.pureharm.dbslick.PureharmSlickPostgresProfile]]
+/** See busymachines.pureharm.dbslick.PureharmSlickPostgresProfile
   * On how to get to use this. Don't blame me, it's how you usually do stuff
   * with slick.
   *

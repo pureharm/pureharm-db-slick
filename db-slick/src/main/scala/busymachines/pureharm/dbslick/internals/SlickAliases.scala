@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-package busymachines.pureharm.internals.dbslick
-
-import busymachines.pureharm.dbslick._
-import busymachines.pureharm.effects.MonadError
+package busymachines.pureharm.dbslick.internals
 
 /** @author Lorand Szakacs, https://github.com/lorandszakacs
-  * @since 04 Apr 2019
+  * @since 16 Jun 2019
   */
-trait SlickConnectionIOCatsInstances {
-
-  implicit final def connectionIOInstance(implicit ec: ConnectionIOEC): MonadError[ConnectionIO, Throwable] =
-    new ConnectionIOMonadError
+trait SlickAliases {
+  final type ProvenShape[U] = slick.lifted.ProvenShape[U]
+  final val ProvenShape: slick.lifted.ProvenShape.type = slick.lifted.ProvenShape
 }

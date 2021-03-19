@@ -65,7 +65,7 @@ trait Transactor[F[_]] {
     *
     * @return
     *   The underlying JDBC profile you used to instantiate this
-    *   [[Transactor]]. Most likely that one global object in your
+    *   Transactor. Most likely that one global object in your
     *   project that you instantiated once, and then forgot about.
     *   Now available to import through here for more localized
     *   reasoning in case you need it.
@@ -76,14 +76,14 @@ trait Transactor[F[_]] {
 
 object Transactor {
   import busymachines.pureharm.effects._
-  import busymachines.pureharm.internals
+  import busymachines.pureharm.dbslick.internals
 
   def pgSQLHikari[F[_]: Concurrent: ContextShift](
     dbProfile:    JDBCProfileAPI,
     dbConnection: DBConnectionConfig,
     asyncConfig:  SlickDBIOAsyncExecutorConfig,
   ): Resource[F, Transactor[F]] =
-    internals.dbslick.HikariTransactorImpl.resource[F](
+    internals.HikariTransactorImpl.resource[F](
       dbProfile = dbProfile
     )(
       url         = dbConnection.jdbcURL,
@@ -101,7 +101,7 @@ object Transactor {
     password:    DBPassword,
     asyncConfig: SlickDBIOAsyncExecutorConfig,
   ): Resource[F, Transactor[F]] =
-    internals.dbslick.HikariTransactorImpl.resource[F](
+    internals.HikariTransactorImpl.resource[F](
       dbProfile = dbProfile
     )(
       url         = url,
@@ -134,7 +134,7 @@ object Transactor {
     password:     DBPassword,
     asyncConfig:  SlickDBIOAsyncExecutorConfig,
   ): F[Transactor[F]] =
-    internals.dbslick.HikariTransactorImpl.unsafeCreate[F](
+    internals.HikariTransactorImpl.unsafeCreate[F](
       slickProfile = slickProfile
     )(
       url         = url,

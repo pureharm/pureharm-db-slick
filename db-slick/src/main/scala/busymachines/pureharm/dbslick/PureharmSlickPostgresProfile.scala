@@ -17,7 +17,7 @@
 package busymachines.pureharm.dbslick
 
 import busymachines.pureharm.db.PureharmDBCoreAliases
-import busymachines.pureharm.internals
+import busymachines.pureharm.dbslick.internals
 
 /** @author Lorand Szakacs, https://github.com/lorandszakacs
   * @since 12 Jun 2019
@@ -83,15 +83,15 @@ trait PureharmSlickPostgresProfile
     * actually implement things.
     */
   trait PureharmSlickPostgresAPIWithImplicits
-    extends this.API with internals.dbslick.PureharmSlickInstances.SproutTypeInstances
-    with internals.dbslick.SlickConnectionIOCatsInstances with internals.dbslick.PureharmSlickConnectionIOOps.Implicits
-    with internals.dbslick.SlickRepoQueriesDefinitions with internals.dbslick.SlickAliases
-    with internals.dbslick.SlickPostgresCirceSupportAPI {
+    extends this.API with internals.PureharmSlickInstances.SproutTypeInstances
+    with internals.SlickConnectionIOCatsInstances with internals.PureharmSlickConnectionIOOps.Implicits
+    with internals.SlickRepoQueriesDefinitions with internals.SlickAliases
+    with internals.SlickPostgresCirceSupportAPI {
     final override protected val enclosingProfile:         slick.jdbc.JdbcProfile     = self
     final override protected val enclosingPostgresProfile: slick.jdbc.PostgresProfile = self
 
-    final type PostgresqlJSON = internals.dbslick.PostgresqlJSON
-    final val PostgresqlJSON: internals.dbslick.PostgresqlJSON.type = internals.dbslick.PostgresqlJSON
+    final type PostgresqlJSON = internals.PostgresqlJSON
+    final val PostgresqlJSON: internals.PostgresqlJSON.type = internals.PostgresqlJSON
   }
 
   final def slickJDBCProfileAPI: SlickJDBCProfileAPI = this.api

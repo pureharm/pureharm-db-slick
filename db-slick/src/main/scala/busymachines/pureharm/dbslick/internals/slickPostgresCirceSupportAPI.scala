@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package busymachines.pureharm.internals.dbslick
+package busymachines.pureharm.dbslick.internals
 
 import busymachines.pureharm.json._
 import busymachines.pureharm.json.implicits._

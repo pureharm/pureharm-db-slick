@@ -16,7 +16,7 @@
 
 package busymachines.pureharm.dbslick
 
-import busymachines.pureharm.internals.dbslick.{PureharmSlickConnectionIOOps, SlickConnectionIOCatsInstances}
+import busymachines.pureharm.dbslick.internals.{PureharmSlickConnectionIOOps, SlickConnectionIOCatsInstances}
 
 /** @author Lorand Szakacs, https://github.com/lorandszakacs
   * @since 13 Jun 2019

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package busymachines.pureharm.internals.dbslick
+package busymachines.pureharm.dbslick.internals
 
 import scala.reflect.ClassTag
 

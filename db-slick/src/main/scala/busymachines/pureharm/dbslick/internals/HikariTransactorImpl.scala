@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package busymachines.pureharm.internals.dbslick
+package busymachines.pureharm.dbslick.internals
 
 import busymachines.pureharm.dbslick._
 import busymachines.pureharm.effects._
@@ -88,7 +88,7 @@ private[pureharm] object HikariTransactorImpl {
   ): Resource[F, Transactor[F]] =
     Resource.make(unsafeCreate[F](dbProfile)(url, username, password, asyncConfig))(_.shutdown)
 
-  /** Prefer using [[resource]] unless you know what you are doing.
+  /** Prefer using resource unless you know what you are doing.
     */
   def unsafeCreate[F[_]: Concurrent: ContextShift](
     slickProfile: JDBCProfileAPI
