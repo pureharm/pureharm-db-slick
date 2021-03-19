@@ -1,22 +1,22 @@
-/** Copyright (c) 2017-2019 BusyMachines
-  *
-  * See company homepage at: https://www.busymachines.com/
-  *
-  * Licensed under the Apache License, Version 2.0 (the "License");
-  * you may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at
-  *
-  *     http://www.apache.org/licenses/LICENSE-2.0
-  *
-  * Unless required by applicable law or agreed to in writing, software
-  * distributed under the License is distributed on an "AS IS" BASIS,
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  */
+/*
+ * Copyright 2019 BusyMachines
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package busymachines.pureharm.dbslick
 
-import busymachines.pureharm.db.PureharmDBCoreTypeDefinitions
+import busymachines.pureharm.db.PureharmDBCoreAliases
 import busymachines.pureharm.internals.dbslick._
 
 /** @author Lorand Szakacs, https://github.com/lorandszakacs
@@ -26,7 +26,7 @@ import busymachines.pureharm.internals.dbslick._
   "Use busymachines.pureharm.dbslick.PureharmSlickPostgresProfile, support for non Postgresql slick will be dropped in the future",
   "0.0.6-M2",
 )
-trait PureharmSlickDBProfile extends PureharmDBCoreTypeDefinitions with PureharmDBSlickTypeDefinitions {
+trait PureharmSlickDBProfile extends PureharmDBCoreAliases with PureharmDBSlickTypeDefinitions {
   self: slick.jdbc.JdbcProfile =>
 
   /** We use this trick to propagate the profile from the top level object to the
@@ -92,7 +92,7 @@ trait PureharmSlickDBProfile extends PureharmDBCoreTypeDefinitions with Pureharm
     * actually implement things.
     */
   trait PureharmSlickAPIWithImplicits
-    extends self.API with PureharmSlickInstances.PhantomTypeInstances with SlickConnectionIOCatsInstances
+    extends self.API with PureharmSlickInstances.SproutTypeInstances with SlickConnectionIOCatsInstances
     with PureharmSlickConnectionIOOps.Implicits with SlickRepoQueriesDefinitions with SlickAliases {
     final override protected val enclosingProfile: slick.jdbc.JdbcProfile = self
   }

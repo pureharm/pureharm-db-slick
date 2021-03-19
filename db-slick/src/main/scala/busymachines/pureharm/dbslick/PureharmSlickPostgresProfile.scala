@@ -1,29 +1,29 @@
-/** Copyright (c) 2019 BusyMachines
-  *
-  * See company homepage at: https://www.busymachines.com/
-  *
-  * Licensed under the Apache License, Version 2.0 (the "License");
-  * you may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at
-  *
-  *     http://www.apache.org/licenses/LICENSE-2.0
-  *
-  * Unless required by applicable law or agreed to in writing, software
-  * distributed under the License is distributed on an "AS IS" BASIS,
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  */
+/*
+ * Copyright 2019 BusyMachines
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package busymachines.pureharm.dbslick
 
-import busymachines.pureharm.db.PureharmDBCoreTypeDefinitions
+import busymachines.pureharm.db.PureharmDBCoreAliases
 import busymachines.pureharm.internals
 
 /** @author Lorand Szakacs, https://github.com/lorandszakacs
   * @since 12 Jun 2019
   */
 trait PureharmSlickPostgresProfile
-  extends slick.jdbc.PostgresProfile with PureharmDBCoreTypeDefinitions with PureharmDBSlickTypeDefinitions { self =>
+  extends slick.jdbc.PostgresProfile with PureharmDBCoreAliases with PureharmDBSlickTypeDefinitions { self =>
 
   /** We use this trick to propagate the profile from the top level object to the
     * definition of the "api" object. Otherwise we can't possibly reuse stuff that
@@ -83,7 +83,7 @@ trait PureharmSlickPostgresProfile
     * actually implement things.
     */
   trait PureharmSlickPostgresAPIWithImplicits
-    extends this.API with internals.dbslick.PureharmSlickInstances.PhantomTypeInstances
+    extends this.API with internals.dbslick.PureharmSlickInstances.SproutTypeInstances
     with internals.dbslick.SlickConnectionIOCatsInstances with internals.dbslick.PureharmSlickConnectionIOOps.Implicits
     with internals.dbslick.SlickRepoQueriesDefinitions with internals.dbslick.SlickAliases
     with internals.dbslick.SlickPostgresCirceSupportAPI {
