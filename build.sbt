@@ -133,10 +133,10 @@ lazy val `db-slick` = project
 lazy val `db-testkit-slick` = project
   .settings(commonSettings)
   .settings(
-    name := "pureharm-db-test-data",
+    name := "pureharm-db-testkit-slick",
     libraryDependencies ++= Seq(
       "com.busymachines" %% "pureharm-db-testkit" % pureharmDBTestkitV withSources(),
-      "com.busymachines" %% "pureharm-db-test-data" % pureharmDBTestkitV withSources(),
+      "com.busymachines" %% "pureharm-db-test-data" % pureharmDBTestkitV % Test withSources(),
       "org.typelevel" %% "log4cats-slf4j"   % log4catsV % Test withSources(),
     )
   ).settings(
