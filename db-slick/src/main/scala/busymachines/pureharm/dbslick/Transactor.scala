@@ -83,7 +83,7 @@ object Transactor {
     dbConnection: DBConnectionConfig,
     asyncConfig:  SlickDBIOAsyncExecutorConfig,
   ): Resource[F, Transactor[F]] =
-    this.pgSQLHikari[F](
+    internals.dbslick.HikariTransactorImpl.resource[F](
       dbProfile = dbProfile
     )(
       url         = dbConnection.jdbcURL,
@@ -92,6 +92,7 @@ object Transactor {
       asyncConfig = asyncConfig,
     )
 
+  @scala.deprecated("Use the overload one that takes DBConnectionConfig as a parameter", "0.1.0")
   def pgSQLHikari[F[_]: Concurrent: ContextShift](
     dbProfile:   JDBCProfileAPI
   )(
@@ -109,11 +110,7 @@ object Transactor {
       asyncConfig = asyncConfig,
     )
 
-  /** Prefer using [[pgSQLHikari]] instead.
-    *
-    * You really need to know what you are doing and
-    * ensure proper cleanup if using this.
-    */
+  @scala.deprecated("Use the overloads that return Resource, and manually do .allocated on your own risk.", "0.1.0")
   def pgSQLHikariUnsafe[F[_]: Concurrent: ContextShift](
     dbProfile:    JDBCProfileAPI,
     dbConnection: DBConnectionConfig,
@@ -128,11 +125,7 @@ object Transactor {
       asyncConfig = asyncConfig,
     )
 
-  /** Prefer using [[pgSQLHikari]] instead.
-    *
-    * You really need to know what you are doing and
-    * ensure proper cleanup if using this.
-    */
+  @scala.deprecated("Use the overloads that return Resource, and manually do .allocated on your own risk.", "0.1.0")
   def pgSQLHikariUnsafe[F[_]: Concurrent: ContextShift](
     slickProfile: JDBCProfileAPI
   )(
