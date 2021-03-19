@@ -20,6 +20,7 @@
 
 addCommandAlias("github-gen", "githubWorkflowGenerate")
 addCommandAlias("github-check", "githubWorkflowCheck")
+addCommandAlias("run-it", "IntegrationTest/test")
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
 val Scala213  = "2.13.5"
@@ -132,12 +133,14 @@ lazy val `db-slick` = project
 
 lazy val `db-testkit-slick` = project
   .settings(commonSettings)
+  .configs(IntegrationTest)
+  .settings(Defaults.itSettings)
   .settings(
     name := "pureharm-db-testkit-slick",
     libraryDependencies ++= Seq(
       "com.busymachines" %% "pureharm-db-testkit" % pureharmDBTestkitV withSources(),
-      "com.busymachines" %% "pureharm-db-test-data" % pureharmDBTestkitV % Test withSources(),
-      "org.typelevel" %% "log4cats-slf4j"   % log4catsV % Test withSources(),
+      "com.busymachines" %% "pureharm-db-test-data" % pureharmDBTestkitV % "it,test" withSources(),
+      "org.typelevel" %% "log4cats-slf4j"   % log4catsV % "it,test" withSources(),
     )
   ).settings(
     javaOptions ++= Seq("-source", "1.8", "-target", "1.8")
@@ -148,7 +151,6 @@ lazy val `db-testkit-slick` = project
 //=============================================================================
 //================================= Settings ==================================
 //=============================================================================
-
 lazy val commonSettings = Seq(
   Compile / unmanagedSourceDirectories ++= {
     val major = if (isDotty.value) "-3" else "-2"
