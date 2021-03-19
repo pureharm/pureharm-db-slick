@@ -85,8 +85,7 @@ trait PureharmSlickPostgresProfile
   trait PureharmSlickPostgresAPIWithImplicits
     extends this.API with internals.PureharmSlickInstances.SproutTypeInstances
     with internals.SlickConnectionIOCatsInstances with internals.PureharmSlickConnectionIOOps.Implicits
-    with internals.SlickRepoQueriesDefinitions with internals.SlickAliases
-    with internals.SlickPostgresCirceSupportAPI {
+    with internals.SlickRepoQueriesDefinitions with internals.SlickAliases with internals.SlickPostgresCirceSupportAPI {
     final override protected val enclosingProfile:         slick.jdbc.JdbcProfile     = self
     final override protected val enclosingPostgresProfile: slick.jdbc.PostgresProfile = self
 
