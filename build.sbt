@@ -33,7 +33,7 @@ val Scala3RC1 = "3.0.0-RC1"
 //see: https://github.com/xerial/sbt-sonatype#buildsbt
 ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
 
-ThisBuild / baseVersion  := "0.1.0"
+ThisBuild / baseVersion  := "0.1"
 ThisBuild / organization := "com.busymachines"
 ThisBuild / organizationName := "BusyMachines"
 ThisBuild / homepage     := Option(url("https://github.com/busymachines/pureharm-db-testkit"))
@@ -89,7 +89,7 @@ val pureharmCoreV       = "0.1.0" //https://github.com/busymachines/pureharm-cor
 val pureharmEffectsV    = "0.1.0" //https://github.com/busymachines/pureharm-effects-cats/releases
 val pureharmDBCoreV     = "0.1.0" //https://github.com/busymachines/pureharm-db-core/releases
 val pureharmDBCoreJDBCV = "0.1.0" //https://github.com/busymachines/pureharm-db-core-jdbc/releases
-val pureharmJSONCirceV  = "0.1.0" //https://github.com/busymachines/pureharm-json-circe/releases
+val pureharmJSONCirceV  = "0.1.1" //https://github.com/busymachines/pureharm-json-circe/releases
 
 lazy val slickV    = "3.3.3" //https://github.com/slick/slick/releases
 lazy val hikariCPV = "3.4.5" //java — https://github.com/brettwooldridge/HikariCP/releases
