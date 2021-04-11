@@ -22,67 +22,61 @@ import busymachines.pureharm.db.testdata._
 import busymachines.pureharm.dbslick.testkit._
 import busymachines.pureharm.effects._
 import busymachines.pureharm.testkit._
-import org.scalatest._
 import org.typelevel.log4cats.slf4j._
 
 /** @author Daniel Incicau, daniel.incicau@busymachines.com
   * @since 27/01/2020
   */
-final class SlickTransactorTest extends PureharmTestWithResource {
+final class SlickTransactorTest extends PureharmTest {
 
   implicit override def testLogger: TestLogger = TestLogger(Slf4jLogger.getLogger[IO])
 
-  /** Instead of the "before and after shit" simply init, and close
-    * everything in this Resource...
-    */
-  override def resource(meta: MetaData): Resource[IO, Transactor[IO]] =
-    SlickTransactorTest.transactor(meta)
+  private val resource = ResourceFixture(testOptions => SlickTransactorTest.transactor(testOptions))
 
-  override type ResourceType = Transactor[IO]
-
-  test("creates the transactor and the session connection is open from the start") { implicit trans: Transactor[IO] =>
-    for {
-      isConnected <- trans.isConnected
-    } yield assert(isConnected === true)
+  resource.test("creates the transactor and the session connection is open from the start") {
+    implicit trans: Transactor[IO] =>
+      for {
+        isConnected <- trans.isConnected
+      } yield assert(isConnected)
   }
 
-  test("closes the active connection") { implicit trans: Transactor[IO] =>
+  resource.test("closes the active connection") { implicit trans: Transactor[IO] =>
     for {
       isConnected <- trans.isConnected
-      _ = assert(isConnected === true)
+      _ = assert(isConnected)
       _           <- trans.closeSession
       isConnected <- trans.isConnected
-    } yield assert(isConnected === false)
+    } yield assert(!isConnected)
   }
 
-  test("recreates the connection when the current connection is open") { implicit trans: Transactor[IO] =>
+  resource.test("recreates the connection when the current connection is open") { implicit trans: Transactor[IO] =>
     for {
       isConnected <- trans.isConnected
-      _ = assert(isConnected === true)
+      _ = assert(isConnected)
       _           <- trans.recreateSession
       isConnected <- trans.isConnected
-    } yield assert(isConnected === true)
+    } yield assert(isConnected)
   }
 
-  test("recreates the connection when the current connection is closed") { implicit trans: Transactor[IO] =>
+  resource.test("recreates the connection when the current connection is closed") { implicit trans: Transactor[IO] =>
     for {
       isConnected <- trans.isConnected
-      _ = assert(isConnected === true)
+      _ = assert(isConnected)
       _           <- trans.closeSession
       isConnected <- trans.isConnected
-      _ = assert(isConnected === false)
+      _ = assert(!isConnected)
       _           <- trans.recreateSession
       isConnected <- trans.isConnected
-    } yield assert(isConnected === true)
+    } yield assert(isConnected)
   }
 
 }
 
 private[test] object SlickTransactorTest extends SlickDBTestSetup(testdb.jdbcProfileAPI) {
 
-  override def dbConfig(meta: TestData)(implicit logger: TestLogger): DBConnectionConfig =
+  override def dbConfig(testOptions: TestOptions)(implicit logger: TestLogger): DBConnectionConfig =
     PHRTestDBConfig.dbConfig.copy(
-      schema = PHRTestDBConfig.schemaName(s"slick_trans_${meta.pos.get.lineNumber}")
+      schema = PHRTestDBConfig.schemaName(s"slick_trans_${testOptions.location.line}")
     )
 
 }

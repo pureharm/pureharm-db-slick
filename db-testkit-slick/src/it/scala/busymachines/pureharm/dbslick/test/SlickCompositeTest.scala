@@ -22,19 +22,19 @@ import busymachines.pureharm.db.testdata._
 import busymachines.pureharm.db.testkit._
 import busymachines.pureharm.dbslick.testkit._
 import busymachines.pureharm.effects._
-import busymachines.pureharm.testkit.TestLogger
-import org.scalatest.TestData
+import busymachines.pureharm.testkit._
 import org.typelevel.log4cats.slf4j._
+import munit.TestOptions
 
 final class SlickCompositeTest extends DBTest[Transactor[IO]] {
 
-  override implicit def testLogger:TestLogger = TestLogger(Slf4jLogger.getLogger[IO])
+  implicit override def testLogger: TestLogger = TestLogger(Slf4jLogger.getLogger[IO])
 
   override type ResourceType = (SlickPHRowRepo[IO], SlickExtPHRowRepo[IO])
 
   override def setup: DBTestSetup[Transactor[IO]] = SlickCompositeTest
 
-  override def resource(meta: MetaData, trans: Transactor[IO]): Resource[IO, ResourceType] =
+  override def resource(testOptions: TestOptions, trans: Transactor[IO]): Resource[IO, ResourceType] =
     Resource.pure[IO, ResourceType] {
       implicit val t:  Transactor[IO] = trans
       implicit val ec: ConnectionIOEC = ConnectionIOEC(runtime.executionContextCT)
@@ -43,14 +43,14 @@ final class SlickCompositeTest extends DBTest[Transactor[IO]] {
 
   private val data = PHRowRepoTest.pureharmRows
 
-  test("insert - row1 + ext1") { case (row, ext) =>
+  testResource.test("insert - row1 + ext1") { case (row, ext) =>
     for {
       _ <- row.insert(data.row1)
       _ <- ext.insert(data.ext1)
-    } yield succeed
+    } yield ()
   }
 
-  test("insert ext1 -> foreign key does not exist") { case (_, ext) =>
+  testResource.test("insert ext1 -> foreign key does not exist") { case (_, ext) =>
     for {
       att <- ext.insert(data.extNoFPK).attempt
       failure = interceptFailure[DBForeignKeyConstraintViolationAnomaly](att)
@@ -66,7 +66,7 @@ final class SlickCompositeTest extends DBTest[Transactor[IO]] {
 
 private[test] object SlickCompositeTest extends SlickDBTestSetup(testdb.jdbcProfileAPI) {
 
-  override def dbConfig(meta: TestData)(implicit logger: TestLogger): DBConnectionConfig =
-    PHRTestDBConfig.dbConfig.withSchemaFromClassAndTest(prefix = "slick", meta = meta)
+  override def dbConfig(testOptions: TestOptions)(implicit logger: TestLogger): DBConnectionConfig =
+    PHRTestDBConfig.dbConfig.withSchemaFromClassAndTest(prefix = "slick", testOptions = testOptions)
 
 }
