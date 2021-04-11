@@ -21,8 +21,7 @@ import busymachines.pureharm.db.testkit._
 import busymachines.pureharm.dbslick._
 import busymachines.pureharm.effects._
 import busymachines.pureharm.testkit._
-import busymachines.pureharm.testkit.util.MDCKeys
-import org.scalatest._
+import busymachines.pureharm.testkit.util._
 
 /** @author Lorand Szakacs, https://github.com/lorandszakacs
   * @since 26 Jun 2020
@@ -31,15 +30,16 @@ abstract class SlickDBTestSetup(private val dbProfile: JDBCProfileAPI) extends D
 
   /** Should be overridden to create a connection config appropriate for the test
     */
-  override def dbConfig(meta: TestData)(implicit logger: TestLogger): DBConnectionConfig
+  override def dbConfig(testOptions: TestOptions)(implicit logger: TestLogger): DBConnectionConfig
 
   override def dbTransactorInstance(
-    meta:        TestData
+    testOptions: TestOptions
   )(implicit rt: RT, logger: TestLogger): Resource[IO, Transactor[IO]] = {
-    val config = dbConfig(meta)
-    import rt._
+    val config = dbConfig(testOptions)
     for {
-      _     <- logger.info(MDCKeys(meta))(s"CREATING Transactor[IO] for: ${config.jdbcURL}").to[Resource[IO, *]]
+      _     <- logger
+        .info(MDCKeys.testSetup(testOptions))(s"CREATING Transactor[IO] for: ${config.jdbcURL}")
+        .to[Resource[IO, *]]
       trans <- Transactor.pgSQLHikari[IO](
         dbProfile    = dbProfile,
         dbConnection = config,

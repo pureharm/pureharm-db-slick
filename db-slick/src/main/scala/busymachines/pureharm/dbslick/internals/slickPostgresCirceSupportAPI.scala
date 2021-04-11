@@ -49,7 +49,7 @@ trait SlickPostgresCirceSupportAPI {
 
     override def getValue(r: ResultSet, idx: Int): Json = {
       val strValue = r.getString(idx)
-      if (r.wasNull) Json.Null else strValue.unsafeAsJson
+      if (r.wasNull) Json.Null else busymachines.pureharm.internals.json.JsonParsing.parseString(strValue).toTry.get
     }
 
     override def updateValue(v: Json, r: ResultSet, idx: Int): Unit =
@@ -61,7 +61,7 @@ trait SlickPostgresCirceSupportAPI {
   def createJsonbColumnType[T: ClassTag](implicit e: Encoder[T], d: Decoder[T]): ColumnType[T] =
     MappedColumnType.base[T, Json](
       tmap   = t => e(t),
-      tcomap = json => json.unsafeDecodeAs[T],
+      tcomap = json => json.decodeAs[T].toTry.get,
     )
 
 }
