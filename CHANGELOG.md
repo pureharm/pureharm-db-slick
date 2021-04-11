@@ -17,12 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [pureharm-core-sprout](https://github.com/busymachines/pureharm-core/releases) `0.2.0`
 - [pureharm-core-identifiable](https://github.com/busymachines/pureharm-core/releases) `0.2.0`
 - [pureharm-effects-cats](https://github.com/busymachines/pureharm-effects-cats/releases) `0.4.0`
-
-
-
-Version upgrades:
-
-- bump `pureharm-json-circe` to `0.1.1`
+- [pureharm-db-core](https://github.com/busymachines/pureharm-db-core/releases) `0.4.0`
+- [pureharm-db-core-jdbc](https://github.com/busymachines/pureharm-db-core-jdbc/releases) `0.4.0`
 
 # 0.1.0
 

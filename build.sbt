@@ -88,8 +88,8 @@ ThisBuild / resolvers += Resolver.sonatypeRepo("snapshots")
 // format: off
 val pureharmCoreV           = "0.2.0"       //https://github.com/busymachines/pureharm-core/releases
 val pureharmEffectsV        = "0.4.0"       //https://github.com/busymachines/pureharm-effects-cats/releases
-val pureharmDBCoreV         = "0.1.0"       //https://github.com/busymachines/pureharm-db-core/releases
-val pureharmDBCoreJDBCV     = "0.1.0"       //https://github.com/busymachines/pureharm-db-core-jdbc/releases
+val pureharmDBCoreV         = "0.4.0"       //https://github.com/busymachines/pureharm-db-core/releases
+val pureharmDBCoreJDBCV     = "0.4.0"       //https://github.com/busymachines/pureharm-db-core-jdbc/releases
 val pureharmJSONCirceV      = "0.1.1"       //https://github.com/busymachines/pureharm-json-circe/releases
 val slickV                  = "3.3.3"       //https://github.com/slick/slick/releases
 val hikariCPV               = "3.4.5"       //java — https://github.com/brettwooldridge/HikariCP/releases
