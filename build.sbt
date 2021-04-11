@@ -94,7 +94,7 @@ val pureharmJSONCirceV      = "0.2.0"       //https://github.com/busymachines/pu
 val pureharmDBTestkitV      = "0.3.0"       //https://github.com/busymachines/pureharm-db-testkit/releases
 val slickV                  = "3.3.3"       //https://github.com/slick/slick/releases
 val hikariCPV               = "3.4.5"       //java — https://github.com/brettwooldridge/HikariCP/releases
-val log4catsV               = "1.2.0"       //https://github.com/typelevel/log4cats/releases
+val log4catsV               = "1.2.2"       //https://github.com/typelevel/log4cats/releases
 // format: on
 
 //=============================================================================
