@@ -85,18 +85,18 @@ ThisBuild / versionIntroduced := Map(
 ThisBuild / resolvers += Resolver.sonatypeRepo("releases")
 ThisBuild / resolvers += Resolver.sonatypeRepo("snapshots")
 
-val pureharmCoreV       = "0.1.0" //https://github.com/busymachines/pureharm-core/releases
-val pureharmEffectsV    = "0.1.0" //https://github.com/busymachines/pureharm-effects-cats/releases
-val pureharmDBCoreV     = "0.1.0" //https://github.com/busymachines/pureharm-db-core/releases
-val pureharmDBCoreJDBCV = "0.1.0" //https://github.com/busymachines/pureharm-db-core-jdbc/releases
-val pureharmJSONCirceV  = "0.1.1" //https://github.com/busymachines/pureharm-json-circe/releases
+// format: off
+val pureharmCoreV           = "0.1.0"       //https://github.com/busymachines/pureharm-core/releases
+val pureharmEffectsV        = "0.1.0"       //https://github.com/busymachines/pureharm-effects-cats/releases
+val pureharmDBCoreV         = "0.1.0"       //https://github.com/busymachines/pureharm-db-core/releases
+val pureharmDBCoreJDBCV     = "0.1.0"       //https://github.com/busymachines/pureharm-db-core-jdbc/releases
+val pureharmJSONCirceV      = "0.1.1"       //https://github.com/busymachines/pureharm-json-circe/releases
+val slickV                  = "3.3.3"       //https://github.com/slick/slick/releases
+val hikariCPV               = "3.4.5"       //java — https://github.com/brettwooldridge/HikariCP/releases
+val pureharmDBTestkitV      = "0.1.0"       //https://github.com/busymachines/pureharm-db-testkit/releases
+val log4catsV               = "1.2.0"       //https://github.com/typelevel/log4cats/releases
+// format: on
 
-lazy val slickV    = "3.3.3" //https://github.com/slick/slick/releases
-lazy val hikariCPV = "3.4.5" //java — https://github.com/brettwooldridge/HikariCP/releases
-
-//for testing
-val pureharmDBTestkitV = "0.1.0" //https://github.com/busymachines/pureharm-db-testkit/releases
-val log4catsV = "1.2.0" //https://github.com/typelevel/log4cats/releases
 //=============================================================================
 //============================== Project details ==============================
 //=============================================================================
