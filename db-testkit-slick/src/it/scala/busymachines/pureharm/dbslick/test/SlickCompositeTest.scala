@@ -28,7 +28,7 @@ import munit.TestOptions
 
 final class SlickCompositeTest extends DBTest[Transactor[IO]] {
 
-  implicit override def testLogger: TestLogger = TestLogger(Slf4jLogger.getLogger[IO])
+  implicit override def testLogger: TestLogger = TestLogger(Slf4jLogger.getLogger)
 
   override type ResourceType = (SlickPHRowRepo[IO], SlickExtPHRowRepo[IO])
 
@@ -37,7 +37,7 @@ final class SlickCompositeTest extends DBTest[Transactor[IO]] {
   override def resource(testOptions: TestOptions, trans: Transactor[IO]): Resource[IO, ResourceType] =
     Resource.pure[IO, ResourceType] {
       implicit val t:  Transactor[IO] = trans
-      implicit val ec: ConnectionIOEC = ConnectionIOEC(runtime.executionContextCT)
+      implicit val ec: ConnectionIOEC = ConnectionIOEC(runtime.implicitIORuntime.compute)
       (SlickPHRowRepo[IO], SlickExtPHRowRepo[IO])
     }
 

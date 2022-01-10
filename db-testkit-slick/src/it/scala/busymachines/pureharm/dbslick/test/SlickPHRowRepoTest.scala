@@ -36,7 +36,7 @@ import org.typelevel.log4cats.slf4j._
   */
 final class SlickPHRowRepoTest extends PHRowRepoTest[Transactor[IO]] {
 
-  implicit override def testLogger: TestLogger = TestLogger(Slf4jLogger.getLogger[IO])
+  implicit override def testLogger: TestLogger = TestLogger(Slf4jLogger.getLoggerFromName[IO]("test-logger"))
 
   override type ResourceType = SlickPHRowRepo[IO]
 
@@ -45,7 +45,7 @@ final class SlickPHRowRepoTest extends PHRowRepoTest[Transactor[IO]] {
   override def resource(testOptions: TestOptions, trans: Transactor[IO]): Resource[IO, SlickPHRowRepo[IO]] =
     Resource.pure[IO, SlickPHRowRepo[IO]] {
       implicit val t:  Transactor[IO] = trans
-      implicit val ec: ConnectionIOEC = ConnectionIOEC(runtime.executionContextCT)
+      implicit val ec: ConnectionIOEC = ConnectionIOEC(runtime.implicitIORuntime.compute)
       SlickPHRowRepo[IO]
     }
 

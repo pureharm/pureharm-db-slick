@@ -35,7 +35,7 @@ private[test] object SlickPHRowRepo {
   //---------------- json stuff ---------------
   import busymachines.pureharm.json._
 
-  implicit val pureharmJSONCol:        Codec[PHJSONCol]      = derive.codec[PHJSONCol]
+  implicit val pureharmJSONCol:        Codec[PHJSONCol]      = derived.codec[PHJSONCol]
   implicit private val jsonColumnType: ColumnType[PHJSONCol] = createJsonbColumnType[PHJSONCol]
 
   implicit private val uniqueJsonColumnType: ColumnType[UniqueJSON] =

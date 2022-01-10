@@ -17,6 +17,7 @@
 package busymachines.pureharm.dbslick
 
 import busymachines.pureharm.db._
+import busymachines.pureharm.dbslick.internals.HikariTransactorImpl
 import busymachines.pureharm.effects._
 
 /** @author Lorand Szakacs, https://github.com/lorandszakacs
@@ -76,32 +77,31 @@ trait Transactor[F[_]] {
 
 object Transactor {
   import busymachines.pureharm.effects._
-  import busymachines.pureharm.dbslick.internals
 
-  def pgSQLHikari[F[_]: Concurrent: ContextShift](
+  def pgSQLHikari[F[_]: Async](
     dbProfile:    JDBCProfileAPI,
     dbConnection: DBConnectionConfig,
     asyncConfig:  SlickDBIOAsyncExecutorConfig,
   ): Resource[F, Transactor[F]] =
-    internals.HikariTransactorImpl.resource[F](
+    HikariTransactorImpl.resource[F](
       dbProfile = dbProfile
     )(
-      url         = dbConnection.jdbcURL,
+      url         = dbConnection.psqlJdbcURL,
       username    = dbConnection.username,
       password    = dbConnection.password,
       asyncConfig = asyncConfig,
     )
 
   @scala.deprecated("Use the overload one that takes DBConnectionConfig as a parameter", "0.1.0")
-  def pgSQLHikari[F[_]: Concurrent: ContextShift](
+  def pgSQLHikari[F[_]: Concurrent](
     dbProfile:   JDBCProfileAPI
   )(
     url:         JDBCUrl,
     username:    DBUsername,
     password:    DBPassword,
     asyncConfig: SlickDBIOAsyncExecutorConfig,
-  ): Resource[F, Transactor[F]] =
-    internals.HikariTransactorImpl.resource[F](
+  )(implicit F: Async[F]): Resource[F, Transactor[F]] =
+    HikariTransactorImpl.resource[F](
       dbProfile = dbProfile
     )(
       url         = url,
@@ -111,11 +111,11 @@ object Transactor {
     )
 
   @scala.deprecated("Use the overloads that return Resource, and manually do .allocated on your own risk.", "0.1.0")
-  def pgSQLHikariUnsafe[F[_]: Concurrent: ContextShift](
+  def pgSQLHikariUnsafe[F[_]: Concurrent](
     dbProfile:    JDBCProfileAPI,
     dbConnection: DBConnectionConfig,
     asyncConfig:  SlickDBIOAsyncExecutorConfig,
-  ): F[Transactor[F]] =
+  )(implicit F: Async[F]): F[Transactor[F]] =
     this.pgSQLHikariUnsafe[F](
       slickProfile = dbProfile
     )(
@@ -126,15 +126,15 @@ object Transactor {
     )
 
   @scala.deprecated("Use the overloads that return Resource, and manually do .allocated on your own risk.", "0.1.0")
-  def pgSQLHikariUnsafe[F[_]: Concurrent: ContextShift](
+  def pgSQLHikariUnsafe[F[_]: Concurrent](
     slickProfile: JDBCProfileAPI
   )(
     url:          JDBCUrl,
     username:     DBUsername,
     password:     DBPassword,
     asyncConfig:  SlickDBIOAsyncExecutorConfig,
-  ): F[Transactor[F]] =
-    internals.HikariTransactorImpl.unsafeCreate[F](
+  )(implicit F: Async[F]): F[Transactor[F]] =
+    HikariTransactorImpl.unsafeCreate[F](
       slickProfile = slickProfile
     )(
       url         = url,

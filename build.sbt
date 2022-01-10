@@ -33,7 +33,7 @@ val Scala3RC1 = "3.0.0-RC1"
 //see: https://github.com/xerial/sbt-sonatype#buildsbt
 ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
 
-ThisBuild / baseVersion  := "0.2"
+ThisBuild / baseVersion  := "0.3"
 ThisBuild / organization := "com.busymachines"
 ThisBuild / organizationName := "BusyMachines"
 ThisBuild / homepage     := Option(url("https://github.com/busymachines/pureharm-db-testkit"))
@@ -86,15 +86,15 @@ ThisBuild / resolvers += Resolver.sonatypeRepo("releases")
 ThisBuild / resolvers += Resolver.sonatypeRepo("snapshots")
 
 // format: off
-val pureharmCoreV           = "0.2.0"       //https://github.com/busymachines/pureharm-core/releases
-val pureharmEffectsV        = "0.4.0"       //https://github.com/busymachines/pureharm-effects-cats/releases
-val pureharmDBCoreV         = "0.4.0"       //https://github.com/busymachines/pureharm-db-core/releases
-val pureharmDBCoreJDBCV     = "0.4.0"       //https://github.com/busymachines/pureharm-db-core-jdbc/releases
-val pureharmJSONCirceV      = "0.2.0"       //https://github.com/busymachines/pureharm-json-circe/releases
-val pureharmDBTestkitV      = "0.2.0"       //https://github.com/busymachines/pureharm-db-testkit/releases
-val slickV                  = "3.3.3"       //https://github.com/slick/slick/releases
-val hikariCPV               = "3.4.5"       //java — https://github.com/brettwooldridge/HikariCP/releases
-val log4catsV               = "1.2.2"       //https://github.com/typelevel/log4cats/releases
+val pureharmCoreV           = "0.3.0"       //https://github.com/busymachines/pureharm-core/releases
+val pureharmEffectsV        = "0.5.0"       //https://github.com/busymachines/pureharm-effects-cats/releases
+val pureharmDBCoreV         = "0.5.0"       //https://github.com/busymachines/pureharm-db-core/releases
+val pureharmDBCoreJDBCV     = "0.6.0"       //https://github.com/busymachines/pureharm-db-core-jdbc/releases
+val pureharmJSONCirceV      = "0.3.0-M1"    //https://github.com/busymachines/pureharm-json-circe/releases
+val pureharmDBTestkitV      = "0.3.0"       //https://github.com/busymachines/pureharm-db-testkit/releases
+val slickV                  = "3.4.0-M1"    //https://github.com/slick/slick/releases
+val hikariCPV               = "5.0.1"       //java — https://github.com/brettwooldridge/HikariCP/releases
+val log4catsV               = "1.4.0"       //https://github.com/typelevel/log4cats/releases
 // format: on
 
 //=============================================================================
@@ -127,7 +127,7 @@ lazy val `db-slick` = project
       "com.typesafe.slick"    %% "slick"                        % slickV                withSources(),
       "com.zaxxer"             % "HikariCP"                     % hikariCPV             withSources(),
       // format: on
-    ),
+    )
   ).settings(
     javaOptions ++= Seq("-source", "1.8", "-target", "1.8")
   )
