@@ -38,7 +38,7 @@ abstract class SlickDBTestSetup(private val dbProfile: JDBCProfileAPI) extends D
     val config = dbConfig(testOptions)
     for {
       _     <- logger
-        .info(MDCKeys.testSetup(testOptions))(s"CREATING Transactor[IO] for: ${config.jdbcURL}")
+        .info(MDCKeys.testSetup(testOptions))(s"CREATING Transactor[IO] for: ${config.psqlJdbcURL}")
         .to[Resource[IO, *]]
       trans <- Transactor.pgSQLHikari[IO](
         dbProfile    = dbProfile,
