@@ -92,7 +92,7 @@ val pureharmDBCoreV         = "0.5.0"       //https://github.com/busymachines/pu
 val pureharmDBCoreJDBCV     = "0.6.0"       //https://github.com/busymachines/pureharm-db-core-jdbc/releases
 val pureharmJSONCirceV      = "0.3.0-M1"    //https://github.com/busymachines/pureharm-json-circe/releases
 val pureharmDBTestkitV      = "0.3.0"       //https://github.com/busymachines/pureharm-db-testkit/releases
-val slickV                  = "3.4.0-M1"    //https://github.com/slick/slick/releases
+val slickV                  = "3.3.3"       //https://github.com/slick/slick/releases
 val hikariCPV               = "5.0.1"       //java — https://github.com/brettwooldridge/HikariCP/releases
 val log4catsV               = "1.4.0"       //https://github.com/typelevel/log4cats/releases
 // format: on
